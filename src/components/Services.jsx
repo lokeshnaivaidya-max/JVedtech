@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import SectionHeader from './ui/SectionHeader'
 import AnimatedIconBox from './ui/AnimatedIconBox'
 import Reveal from './ui/Reveal'
-import Card3D from './ui/Card3D'
 import {
   IconEducation,
   IconAI,
@@ -18,25 +17,25 @@ const SERVICES = [
     animation: 'education',
     title: 'EduGlobe',
     description:
-      'Our Educational Services are designed to empower healthcare professionals with the knowledge and skills they need to excel in a constantly evolving industry.',
+      'Customized educational programs designed to empower healthcare professionals with cutting-edge knowledge and essential skills for excellence in an evolving industry.',
     highlights: [
-      'Customized Training Programs tailored to meet the specific needs of healthcare providers, institutions, and organizations.',
-      'Workshops, Seminars & Webinars focused on the latest trends and advancements in healthcare.',
-      'E-Learning Modules that provide interactive, online learning tools for flexible and accessible education.',
-      'Skill Development in areas such as patient care, technology integration, and regulatory compliance.',
+      'Customized Training Programs',
+      'Interactive Online Learning',
+      'Expert-Led Workshops',
+      'Professional Certification',
     ],
   },
   {
     icon: IconMegaphone,
     animation: 'megaphone',
-    title: 'Digital Ad Pro Expertise',
+    title: 'Digital Expertise',
     description:
-      'Our Digital Ad Pro Expertise focuses on revolutionizing healthcare marketing by implementing innovative digital strategies.',
+      'Revolutionary healthcare marketing through innovative digital strategies that reach the right audience with personalized, impactful messaging.',
     highlights: [
-      'Targeted Campaigns that reach the right audience with personalized healthcare messaging.',
-      'Social Media Management that engages patients and stakeholders through impactful campaigns.',
-      'Pay-Per-Click (PPC) Advertising to drive traffic and conversions with effective ad placements.',
-      'Content Marketing that creates informative, high-quality content tailored to the healthcare industry.',
+      'Targeted Ad Campaigns',
+      'Social Media Management',
+      'Content Strategy',
+      'Analytics & Insights',
     ],
   },
   {
@@ -44,12 +43,12 @@ const SERVICES = [
     animation: 'ai',
     title: 'Medi AI Informatics',
     description:
-      'Our Medi AI Informatics services harness artificial intelligence to transform healthcare workflows and patient decision-making.',
+      'Artificial intelligence solutions that transform healthcare workflows, enabling faster diagnostics and data-driven clinical decision-making.',
     highlights: [
-      'AI-Powered Diagnostics that enable faster and more accurate disease detection.',
-      'Natural Language Processing (NLP) to streamline patient communication and record-keeping.',
-      'Remote Patient Monitoring using AI tools to track health metrics and alert caregivers.',
-      'Decision Support Systems that empower providers with data-driven insights for better decisions.',
+      'AI-Powered Diagnostics',
+      'Natural Language Processing',
+      'Patient Monitoring Systems',
+      'Decision Support Tools',
     ],
   },
   {
@@ -57,12 +56,12 @@ const SERVICES = [
     animation: 'globe',
     title: 'In-Home Wellness',
     description:
-      "Our In-Home Wellness services redefine patient care by bringing top-notch medical services into the comfort of patients' homes.",
+      'Bringing top-notch medical services into homes through comprehensive health monitoring and skilled professional support for patient comfort.',
     highlights: [
-      'Home Health Monitoring for continuous tracking of health metrics with advanced technology.',
-      'Nursing and Caregiver Services delivered by skilled professionals for personalized support.',
-      'Rehabilitation Therapy including physical, occupational, and speech therapy at home.',
-      'Medication Management that ensures patients adhere to prescribed treatments with guidance and support.',
+      'Home Health Monitoring',
+      'Professional Caregivers',
+      'Therapy Services',
+      'Medication Management',
     ],
   },
   {
@@ -70,91 +69,153 @@ const SERVICES = [
     animation: 'bulb',
     title: 'Holistic Wellbeing',
     description:
-      'Holistic Wellbeing is dedicated to enhancing mental, physical, and emotional health through a comprehensive wellness approach.',
+      'Comprehensive wellness programs enhancing mental, physical, and emotional health through integrated approaches for optimal life quality.',
     highlights: [
-      'Mental Health Support with counseling, stress management programs, and mindfulness techniques.',
-      'Physical Fitness Programs, nutrition guidance, and lifestyle coaching for optimal health.',
-      'Emotional Wellness training for resilience, balance, and stronger emotional intelligence.',
-      'Integrative Health Solutions that combine traditional and alternative approaches for overall wellbeing.',
+      'Mental Health Support',
+      'Fitness Programs',
+      'Wellness Coaching',
+      'Mindfulness Training',
     ],
   },
   {
     icon: IconChart,
     animation: 'chart',
-    title: 'Leadership & Entrepreneurship',
+    title: 'Leadership Programs',
     description:
-      'Our Leadership & Entrepreneurship programs cultivate healthcare innovators and leaders for the next generation.',
+      'Cultivating healthcare innovators and visionary leaders through strategic training in entrepreneurship, innovation, and organizational transformation.',
     highlights: [
-      'Strategic Leadership training to develop visionary leadership skills and drive transformation.',
-      'Innovation Management that fosters entrepreneurial thinking and breakthrough healthcare solutions.',
-      'Business Development coaching in market analysis, planning, and building sustainable enterprises.',
-      'Change Management support to help leaders navigate complex healthcare transformations effectively.',
+      'Strategic Leadership',
+      'Innovation Management',
+      'Business Development',
+      'Change Management',
     ],
   },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
 export default function Services() {
   return (
-    <section id="services" className="section-padding relative overflow-hidden bg-gradient-to-br from-green-50 via-cyan-50 to-emerald-100">
-      <div className="pointer-events-none absolute inset-0 mesh-gradient opacity-40" />
+    <section id="services" className="section-padding relative overflow-hidden bg-white">
+      {/* Background Elements */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-gradient-to-br from-blue-100/40 to-cyan-100/20 blur-3xl" />
+        <div className="absolute top-1/3 -left-40 h-80 w-80 rounded-full bg-gradient-to-br from-green-100/30 to-emerald-100/20 blur-3xl" />
+        <div className="absolute -bottom-40 right-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-blue-50/30 to-cyan-50/20 blur-3xl" />
+      </div>
+
       <div className="section-container relative">
-        <div className="mb-14 max-w-3xl">
+        {/* Header */}
+        <div className="mb-16 max-w-3xl">
           <SectionHeader
             label="Our Services"
-            title="We Are at the Forefront of Healthcare"
-            description="We deliver exceptional services in education, patient care, digital advertising, and medical innovation to empower growth, accessibility, and transformation."
+            title="Transforming Healthcare Through Innovation"
+            description="We deliver exceptional services in education, patient care, digital innovation, and medical excellence to empower growth and transformation."
           />
-          <Reveal delay={0.1}>
-            <p className="mt-6 text-base leading-relaxed text-emerald-900-muted">
-              JVEDTECH Medovation is at the forefront of the healthcare sector, delivering exceptional services in education, patient care, digital advertising, and medical product import-export. We empower growth and transformation for healthcare organizations, professionals, and patients.
-            </p>
-          </Reveal>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Services Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {SERVICES.map((service, i) => {
             const Icon = service.icon
             return (
-              <Reveal key={service.title} delay={(i % 3) * 0.1}>
-                <Card3D>
-                  <motion.article
-                    whileHover={{ y: -2 }}
+              <motion.div
+                key={service.title}
+                variants={itemVariants}
+              >
+                <Reveal delay={(i % 3) * 0.05}>
+                  <motion.div
+                    whileHover={{ y: -8 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="group relative flex h-full flex-col overflow-hidden p-7"
+                    className="group relative h-full"
                   >
-                    <div className="card-shine pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100" />
+                    {/* Card Background */}
+                    <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-blue-100/20 via-cyan-100/10 to-green-100/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                    <div className="relative flex flex-1 flex-col">
+                    {/* Card Content */}
+                    <div className="card-premium relative flex flex-col overflow-hidden rounded-2xl p-8 h-full">
+                      {/* Shine Effect */}
+                      <div className="card-shine pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                      <div className="relative z-10 flex flex-1 flex-col">
+                        {/* Icon */}
+                        <motion.div
+                          whileHover={{ scale: 1.15, rotate: 5 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          className="inline-flex w-fit"
+                        >
+                          <AnimatedIconBox animation={service.animation}>
+                            <Icon />
+                          </AnimatedIconBox>
+                        </motion.div>
+
+                        {/* Title */}
+                        <h3 className="mt-6 text-2xl font-bold text-foreground">
+                          {service.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="mt-3 text-sm leading-relaxed text-foreground-muted">
+                          {service.description}
+                        </p>
+
+                        {/* Highlights */}
+                        <ul className="mt-6 flex-1 space-y-3">
+                          {service.highlights.map((item) => (
+                            <li key={item} className="flex items-center gap-3 text-sm text-foreground-muted">
+                              <span className="inline-flex h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Arrow */}
                       <motion.div
-                        whileHover={{ scale: 1.1, rotateZ: 5 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                        initial={{ x: 0, opacity: 0 }}
+                        whileHover={{ x: 4, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-8 pt-6 border-t border-blue-200/40 flex items-center gap-2 text-sm font-semibold text-blue-600 group-hover:text-blue-700"
                       >
-                        <AnimatedIconBox animation={service.animation}>
-                          <Icon />
-                        </AnimatedIconBox>
+                        Learn More
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       </motion.div>
-
-                      <h3 className="mt-5 text-xl font-semibold text-emerald-900">{service.title}</h3>
-
-                      <p className="mt-3 text-sm leading-relaxed text-emerald-900-muted">
-                        {service.description}
-                      </p>
-
-                      <ul className="mt-5 flex-1 space-y-3 text-sm text-emerald-900-muted">
-                        {service.highlights.map((item) => (
-                          <li key={item} className="flex items-start gap-3">
-                            <span className="mt-1.5 inline-flex h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
-                  </motion.article>
-                </Card3D>
-              </Reveal>
+                  </motion.div>
+                </Reveal>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

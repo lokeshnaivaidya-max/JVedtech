@@ -171,10 +171,7 @@ export default function PremiumNavbar() {
                           {item.label}
                         </motion.a>
                       ))}
-              </div>
-              <Button href="#community" variant="primary" className="mt-4 w-full">
-                Join Community
-              </Button>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
