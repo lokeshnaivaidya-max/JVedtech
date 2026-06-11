@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     host: true,
-    allowedHosts: ['.ngrok-free.app', '.ngrok.io', '.ngrok.app'],
+    allowedHosts: ['.ngrok-free.app', '.ngrok.io', '.ngrok.app', 'sb-yrvlzugu15k2.vercel.run', '.vercel.run'],
   },
 })
