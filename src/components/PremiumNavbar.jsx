@@ -6,9 +6,14 @@ const NAV_LINKS = [
   { label: 'Home', sectionId: 'home' },
   { label: 'About', sectionId: 'about' },
   { label: 'Services', sectionId: 'services' },
-  { label: 'Events', sectionId: 'events' },
   { label: 'Careers', sectionId: 'careers' },
   { label: 'Community', sectionId: 'community' },
+]
+
+const RESOURCE_ITEMS = [
+  { label: 'Events', href: '#events', icon: '📅' },
+  { label: 'Blogs', href: '#blogs', icon: '📝' },
+  { label: 'Newsletters', href: '#newsletters', icon: '📬' },
 ]
 
 const SECTION_IDS = NAV_LINKS.map((link) => link.sectionId)
@@ -18,6 +23,7 @@ export default function PremiumNavbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false)
 
   const updateActiveSection = useCallback(() => {
     const scrollPos = window.scrollY + NAV_OFFSET
@@ -114,6 +120,65 @@ export default function PremiumNavbar() {
                 </a>
               )
             })}
+            <div className="relative">
+              <button
+                onClick={() => setIsResourcesOpen(!isResourcesOpen)}
+                onMouseEnter={() => setIsResourcesOpen(true)}
+                onMouseLeave={() => setIsResourcesOpen(false)}
+                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 flex items-center gap-1 ${
+                  isResourcesOpen
+                    ? 'text-foreground'
+                    : 'text-foreground-muted hover:text-foreground'
+                }`}
+              >
+                Resources
+                <motion.svg
+                  animate={{ rotate: isResourcesOpen ? 180 : 0 }}
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </motion.svg>
+              </button>
+              <AnimatePresence>
+                {isResourcesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    onMouseEnter={() => setIsResourcesOpen(true)}
+                    onMouseLeave={() => setIsResourcesOpen(false)}
+                    className="absolute top-full right-0 mt-2 w-48 rounded-xl border border-brand-200/60 bg-white/95 shadow-lg shadow-brand-900/10 backdrop-blur-xl z-[1001]"
+                  >
+                    <div className="p-2">
+                      {RESOURCE_ITEMS.map((item, idx) => (
+                        <motion.a
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => {
+                            handleNavClick(item.href.slice(1))
+                            setIsResourcesOpen(false)
+                          }}
+                          initial={{ opacity: 0, x: -4 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground-muted hover:bg-brand-100/60 hover:text-foreground transition-all duration-200"
+                        >
+                          <span className="text-base">{item.icon}</span>
+                          {item.label}
+                        </motion.a>
+                      ))}
+              </div>
+              <Button href="#community" variant="primary" className="mt-4 w-full">
+                Join Community
+              </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <Button href="#community" variant="primary" className="ml-4 px-5 py-2.5 text-xs">
               Join Community
             </Button>
@@ -163,9 +228,23 @@ export default function PremiumNavbar() {
                   </a>
                 )
               })}
-              <Button href="#community" variant="primary" className="mt-2 w-full">
-                Join Community
-              </Button>
+              <div className="border-t border-brand-100 pt-2 mt-2">
+                <div className="px-3 py-2 text-xs font-semibold text-foreground-muted uppercase tracking-wide">Resources</div>
+                {RESOURCE_ITEMS.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => {
+                      handleNavClick(item.href.slice(1))
+                      setIsMobileMenuOpen(false)
+                    }}
+                    className="flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-foreground-muted hover:bg-brand-100 hover:text-foreground transition"
+                  >
+                    <span className="text-base">{item.icon}</span>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}

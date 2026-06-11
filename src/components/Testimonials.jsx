@@ -1,5 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { TESTIMONIALS } from '../data/content'
+import Card3D from './ui/Card3D'
 
 function useInView(threshold = 0.2) {
   const ref = useRef(null)
@@ -34,31 +36,43 @@ function TestimonialCard({ testimonial, delay }) {
         }
       `}</style>
 
-      <div className="glass rounded-xl p-8 h-full flex flex-col transition-all duration-300 group-hover:shadow-lg group-hover:shadow-brand-400/20">
-        {/* Quote Icon */}
-        <div className="text-4xl mb-4 opacity-60">✦</div>
+      <Card3D>
+        <motion.div
+          className="glass rounded-xl p-8 h-full flex flex-col transition-all duration-300 group-hover:shadow-lg group-hover:shadow-brand-400/20"
+          whileHover={{ y: -4 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        >
+          {/* Quote Icon */}
+          <motion.div
+            className="text-4xl mb-4 opacity-60"
+            animate={{ scale: inView ? 1 : 0.8 }}
+            transition={{ delay: delay + 0.2 }}
+          >
+            ✦
+          </motion.div>
 
-        {/* Quote */}
-        <p className="text-base text-foreground-muted leading-relaxed mb-8 flex-grow italic">
-          "{testimonial.quote}"
-        </p>
+          {/* Quote */}
+          <p className="text-base text-foreground-muted leading-relaxed mb-8 flex-grow italic">
+            "{testimonial.quote}"
+          </p>
 
-        {/* Divider */}
-        <div className="border-t border-brand-600/10 my-6" />
+          {/* Divider */}
+          <div className="border-t border-brand-600/10 my-6" />
 
-        {/* Author Info */}
-        <div>
-          <p className="font-semibold text-brand-900 text-sm">
-            {testimonial.name}
-          </p>
-          <p className="text-xs text-brand-500 font-medium uppercase tracking-widest mt-1">
-            {testimonial.title}
-          </p>
-          <p className="text-xs text-foreground-muted mt-2">
-            {testimonial.position}
-          </p>
-        </div>
-      </div>
+          {/* Author Info */}
+          <div>
+            <p className="font-semibold text-brand-900 text-sm">
+              {testimonial.name}
+            </p>
+            <p className="text-xs text-brand-500 font-medium uppercase tracking-widest mt-1">
+              {testimonial.title}
+            </p>
+            <p className="text-xs text-foreground-muted mt-2">
+              {testimonial.position}
+            </p>
+          </div>
+        </motion.div>
+      </Card3D>
     </div>
   )
 }
@@ -99,9 +113,13 @@ export default function Testimonials() {
           <p className="text-foreground-muted mb-6 max-w-lg mx-auto">
             Ready to collaborate with us? Let's create impactful solutions for healthcare together.
           </p>
-          <button className="px-8 py-3 bg-brand-500 text-white rounded-lg font-medium transition-all duration-300 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-500/30">
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-8 py-3 bg-gradient-to-r from-brand-300 to-green-300 text-foreground rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-brand-400/30"
+          >
             Start Your Journey
-          </button>
+          </motion.button>
         </div>
       </div>
     </section>

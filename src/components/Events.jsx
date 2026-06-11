@@ -1,10 +1,11 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { EVENTS } from '../data/content'
 import SectionHeader from './ui/SectionHeader'
 import Reveal from './ui/Reveal'
 import Button from './ui/Button'
 import Input from './ui/Input'
+import Card3D from './ui/Card3D'
 
 const SAMPLE_EVENTS = EVENTS || []
 
@@ -26,7 +27,7 @@ function EventCard({ event, delay, onRegister }) {
         transition={{ duration: 0.3 }}
         className="group h-full"
       >
-        <div className="card-premium flex h-full flex-col overflow-hidden rounded-2xl">
+        <Card3D>
           <div className="relative border-b border-sky-200 p-6">
             <div className="absolute top-4 right-4 flex h-16 w-16 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-brand-100 to-green-100">
               <div className="text-[10px] font-semibold uppercase text-brand-500">{month}</div>
@@ -77,7 +78,7 @@ function EventCard({ event, delay, onRegister }) {
               {event.status === 'past' ? 'Closed' : 'Register Now'}
             </Button>
           </div>
-        </div>
+        </Card3D>
       </motion.div>
     </Reveal>
   )

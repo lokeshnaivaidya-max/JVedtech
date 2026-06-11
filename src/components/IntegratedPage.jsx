@@ -5,6 +5,8 @@ import Services from './Services'
 import Events from './Events'
 import Careers from './Careers'
 import Community from './Community'
+import Blogs from './Blogs'
+import Newsletters from './Newsletters'
 
 export default function IntegratedPage() {
   useScrollReveal()
@@ -17,6 +19,8 @@ export default function IntegratedPage() {
       <About />
       <Services />
       <Events />
+      <Blogs />
+      <Newsletters />
       <Careers />
       <Community />
     </main>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
 
 const variants = {
   primary:
@@ -27,27 +28,55 @@ export default function Button({
   onClick,
   ...props
 }) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const ref = useRef(null)
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 disabled:pointer-events-none disabled:opacity-60'
+    'relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 disabled:pointer-events-none disabled:opacity-60 overflow-hidden'
 
   const classes = `${base} ${variants[variant]} ${className}`
   const motionProps = {
-    whileHover: { scale: 1.02, y: -1 },
-    whileTap: { scale: 0.98 },
+    whileHover: { scale: 1.05, y: -2 },
+    whileTap: { scale: 0.96 },
     transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
   }
 
   if (href) {
     return (
-      <MotionLink href={href} className={classes} onClick={onClick} {...motionProps} {...props}>
-        {children}
-      </MotionLink>
+      <div ref={ref} onMouseMove={handleMouseMove} className="relative">
+        <MotionLink 
+          href={href} 
+          className={classes} 
+          onClick={onClick} 
+          {...motionProps} 
+          {...props}
+        >
+          <span className="relative z-10">{children}</span>
+        </MotionLink>
+      </div>
     )
   }
 
   return (
-    <MotionButton type={type} className={classes} onClick={onClick} {...motionProps} {...props}>
-      {children}
-    </MotionButton>
+    <div ref={ref} onMouseMove={handleMouseMove} className="relative">
+      <MotionButton 
+        type={type} 
+        className={classes} 
+        onClick={onClick} 
+        {...motionProps} 
+        {...props}
+      >
+        <span className="relative z-10">{children}</span>
+      </MotionButton>
+    </div>
   )
 }

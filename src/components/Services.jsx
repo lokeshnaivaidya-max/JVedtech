@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import SectionHeader from './ui/SectionHeader'
 import AnimatedIconBox from './ui/AnimatedIconBox'
 import Reveal from './ui/Reveal'
+import Card3D from './ui/Card3D'
 import {
   IconEducation,
   IconAI,
@@ -115,34 +116,41 @@ export default function Services() {
             const Icon = service.icon
             return (
               <Reveal key={service.title} delay={(i % 3) * 0.1}>
-                <motion.article
-                  whileHover={{ y: -6 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-green-200 bg-gradient-to-br from-white via-green-50 to-cyan-50 p-7 shadow-sm transition-shadow duration-300 hover:border-green-300 hover:shadow-xl hover:shadow-green-200/40"
-                >
-                  <div className="card-shine pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100" />
+                <Card3D>
+                  <motion.article
+                    whileHover={{ y: -2 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="group relative flex h-full flex-col overflow-hidden p-7"
+                  >
+                    <div className="card-shine pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100" />
 
-                  <div className="relative flex flex-1 flex-col">
-                    <AnimatedIconBox animation={service.animation}>
-                      <Icon />
-                    </AnimatedIconBox>
+                    <div className="relative flex flex-1 flex-col">
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotateZ: 5 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                      >
+                        <AnimatedIconBox animation={service.animation}>
+                          <Icon />
+                        </AnimatedIconBox>
+                      </motion.div>
 
-                    <h3 className="mt-5 text-xl font-semibold text-emerald-900">{service.title}</h3>
+                      <h3 className="mt-5 text-xl font-semibold text-emerald-900">{service.title}</h3>
 
-                    <p className="mt-3 text-sm leading-relaxed text-emerald-900-muted">
-                      {service.description}
-                    </p>
+                      <p className="mt-3 text-sm leading-relaxed text-emerald-900-muted">
+                        {service.description}
+                      </p>
 
-                    <ul className="mt-5 flex-1 space-y-3 text-sm text-emerald-900-muted">
-                      {service.highlights.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="mt-1.5 inline-flex h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.article>
+                      <ul className="mt-5 flex-1 space-y-3 text-sm text-emerald-900-muted">
+                        {service.highlights.map((item) => (
+                          <li key={item} className="flex items-start gap-3">
+                            <span className="mt-1.5 inline-flex h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.article>
+                </Card3D>
               </Reveal>
             )
           })}

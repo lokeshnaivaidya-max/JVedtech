@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import Button from './ui/Button'
 
@@ -75,19 +76,27 @@ export default function Hero() {
         </div>
 
         <div className="hero-stat grid grid-cols-2 gap-3 sm:gap-4">
-          {STATS.map((stat) => (
-            <div
+          {STATS.map((stat, idx) => (
+            <motion.div
               key={stat.label}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85 + idx * 0.08, duration: 0.75 }}
+              whileHover={{ y: -4, rotateY: 8 }}
               className="glass-dark group relative overflow-hidden rounded-2xl p-5 transition duration-500 hover:border-brand-300/40 sm:p-6"
+              style={{ perspective: '1000px' }}
             >
               <div className="card-shine-dark pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100" />
-              <p className="relative font-display text-2xl font-bold text-brand-300 sm:text-3xl">
+              <motion.p
+                className="relative font-display text-2xl font-bold text-brand-300 sm:text-3xl"
+                whileHover={{ scale: 1.05 }}
+              >
                 {stat.value}
-              </p>
+              </motion.p>
               <p className="relative mt-2 text-xs leading-snug text-white/65 sm:text-sm">
                 {stat.label}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
